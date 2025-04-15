@@ -1,7 +1,7 @@
 ---
 title: Doing an Inventory of IoT devices using IDevID scanning
 abbrev: IDevID scan
-docname: draft-richardson-iotoops-mud-query-00
+docname: draft-richardson-iotops-mud-query-00
 
 # stand_alone: true
 
@@ -27,6 +27,7 @@ author:
 normative:
   BCP14: RFC8174
   RFC8520:
+  I-D.birkholz-rats-mud:
 
 informative:
   RFC9238:

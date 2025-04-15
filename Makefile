@@ -1,4 +1,4 @@
-DRAFT:=draft
+DRAFT:=mud-query
 VERSION:=$(shell ./getver ${DRAFT}.mkd )
 EXAMPLES=
 
