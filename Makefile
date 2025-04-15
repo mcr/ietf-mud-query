@@ -7,7 +7,7 @@ ${DRAFT}-${VERSION}.txt: ${DRAFT}.txt
 	: git add ${DRAFT}-${VERSION}.txt ${DRAFT}.txt
 
 %.xml: %.mkd
-	kramdown-rfc2629 ${DRAFT}.mkd | ./insert-figures >${DRAFT}.xml
+	kramdown-rfc2629 -3 ${DRAFT}.mkd >${DRAFT}.xml
 	unset DISPLAY; XML_LIBRARY=$(XML_LIBRARY):./src xml2rfc --v2v3 ${DRAFT}.xml
 	mv ${DRAFT}.v2v3.xml ${DRAFT}.xml
 
@@ -18,7 +18,7 @@ ${DRAFT}-${VERSION}.txt: ${DRAFT}.txt
 	unset DISPLAY; XML_LIBRARY=$(XML_LIBRARY):./src xml2rfc --html -o $@ $?
 
 submit: ${DRAFT}.xml
-	curl -S -F "user=mcr+ietf@sandelman.ca" -F "xml=@${DRAFT}.xml" https://datatracker.ietf.org/api/submit
+	curl -s -F "user=mcr+ietf@sandelman.ca" ${REPLACES} -F "xml=@${DRAFT}.xml" https://datatracker.ietf.org/api/submission | jq
 
 version:
 	echo Version: ${VERSION}

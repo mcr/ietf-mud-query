@@ -1,0 +1,104 @@
+---
+title: Doing an Inventory of IoT devices using IDevID scanning
+abbrev: IDevID scan
+docname: draft-richardson-iotoops-mud-query-00
+
+# stand_alone: true
+
+ipr: trust200902
+area: Internet
+wg: IOTOPS Working Group
+kw: Internet-Draft
+cat: std
+
+coding: utf-8
+pi:    # can use array (if all yes) or hash here
+  toc: yes
+  sortrefs:   # defaults to yes
+  symrefs: yes
+
+author:
+
+- ins: M. Richardson
+  name: Michael Richardson
+  org: Sandelman Software Works
+  email: mcr+ietf@sandelman.ca
+
+normative:
+  BCP14: RFC8174
+  RFC8520:
+
+informative:
+  RFC9238:
+  RFC9686:
+  RFC9726:
+  nmap:
+    title: "NMAP"
+    target: "https://nmap.org/"
+    date: 2025-04-15
+
+--- abstract
+
+This document describes a mechanism to do an inventory of devices on a network.
+
+While there are significant abuse and privacy concerns with kind of scanning, the practice of scanning networks and fingerprinting devices has been occuring since the mid 1990s.
+But, the adhoc methods are not reliable and do not provide any kind of strong device identity.
+
+This document takes the approach that if it will happen, it might as well be reliable and secure.
+
+--- middle
+
+# Introduction
+
+Even before the first release of {{nmap}} in 1998, network operators have wanted to know what systems are on their network.
+
+One way to do this control has been to require authentication before a system can use the Internet in the form of authenticating firewall proxies, including standards work around SOCKSv5 {{?RFC1929}}.
+For desktop users these mechanisms have been poorly received, and in many environments these controls have been turned off, or are never deployed.
+The authenticate before Internet use can create be used to create an inventory, but it does not directly create an inventory.
+Privacy considerations around IP address and MAC address disclosure have increasingly made that level of inventory even less useful {{?RFC9724}}.
+
+None of the above heuristics are useful for devices which do not attempt to use Internet.
+Nor can any kind of person focused authenticated firewall traversal be easily applied to IoT devices.
+Many enterprises routinely scan DHCPv4 logs to make inventories of devices, but these only help for devices which do IPv4, and which use DHCP.  One response is {{?RFC9686}}, to allow IPv6 devices to register their name via DHCP, and this is likely to be somewhat useful for some systems.
+
+Enterprises also will collect data from the ARP and IPv6 Neighbor Discovery tables of their routers, and this is probably the most accurate way to create some kind of inventory.
+But the result are just ethernet addresses.
+When they are IEEE OUI derived, it might point to a brand of device, but it might also just point to the brand of Ethernet adapter used.
+Getting further information out the device can be difficult.
+
+Manufacturer Usage Descriptions (MUD) {{RFC8520}} are an emerging technology which can provide
+a reliable link back to not just the manufacturer, but also the device type, and even provide access to ways in which to access the trustworthiness of the device {{I-D.birkholz-rats-mud}}.
+
+This document proposes an active protocol by which the table of MAC addresses can be turned into a MUD URL.
+
+# Protocol
+
+1. Make IPv6 Link-Local connection to SLAAC-Ethernet derived IPv6 address on port TBD2.
+2. Start TLS on this port.
+3. Device uses it's IDevID certificate to respond to TLS request.
+4. Do some trivial request over TLS.
+5. Extract MUD URL from IDevID certificate.
+
+# Privacy Considerations
+
+Many.
+
+# Security Considerations
+
+Even more.
+
+Much potential for abuse by malware.
+
+# IANA Considerations
+
+This will need a TCP port number allocated, and perhaps also a CoAPS/DTLS port number.
+
+# Acknowledgements
+
+Hello.
+
+# Changelog
+
+
+--- back
+
