@@ -1,7 +1,7 @@
 ---
 title: Doing an Inventory of IoT devices using IDevID scanning
 abbrev: IDevID scan
-docname: draft-richardson-iotops-mud-query-00
+docname: draft-richardson-iotops-mud-query-01
 
 # stand_alone: true
 
@@ -23,6 +23,11 @@ author:
   name: Michael Richardson
   org: Sandelman Software Works
   email: mcr+ietf@sandelman.ca
+
+-
+  fullname: Chunchi Peter Liu
+  organization: Huawei
+  email: liuchunchi@huawei.com
 
 normative:
   BCP14: RFC8174
