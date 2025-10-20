@@ -77,7 +77,13 @@ a reliable link back to not just the manufacturer, but also the device type, and
 
 This document proposes an active protocol by which the table of MAC addresses can be turned into a MUD URL.
 
-# Protocol
+# Protocol Details
+
+There are three steps to doing this inventory: discovery, interrogation and
+
+
+
+
 
 1. Make IPv6 Link-Local connection to SLAAC-Ethernet derived IPv6 address on port TBD2.
 2. Start TLS on this port.
